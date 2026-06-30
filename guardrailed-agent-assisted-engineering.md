@@ -1,7 +1,7 @@
 # Guardrailed Agent-Assisted Engineering: A Personal Use Case and Experience
 ## Preface
 
-**Author note: I am not a mobile developer**, I came to this project with software engineering experience but no prior iOS platform knowledge. This is stated at the outset because it is the single most important design constraint in everything that follows. This writeup is not meant to be suggestive or representative of the specifics of how I *think* a governance model should be adopted. It is meant to highlight my own experiences (successes, failures, etc.) and to suggest that intensive focus should be lent towards quality management in the overall system, under which agents, models, harnesses, skills, plugins, etc. all operate.
+**Author notes: I am not a mobile developer**, I came to this project with software engineering experience but no prior iOS platform knowledge. I state this at the outset because it is the single most important design constraint in everything that follows. This writeup is not meant to be suggestive or representative of the **specifics** of how I think a governance model should be adopted; it does walk through an reference process towards the end that shows how adopting or evolving a system *could* be done. It is also meant to highlight my own experiences (successes, failures, etc.) and to suggest that intensive focus should be lent towards quality management within an overall system, under which agents, models, harnesses, skills, plugins, etc. all operate.
 
 ---
 
@@ -280,7 +280,7 @@ Agents are most safely used as accelerants within a well-designed set of human-g
 
 # Designing A System
 
-**Disclaimer** - I'm not going fully into what this looks like, in practice, because it would be an even larger wall of text than this is already.
+**Disclaimer** - I'm not going fully into what this looks like, in practice, because it would be an even larger wall of text than this is already. This is also for reference purposes and is not meant to suggest how this gets done, it's simply how my brain thinks about it.
 ________
 The way I tend to think about a System is as a set of governance components, which can be arranged in a multitude of ways, but for the purposes of this exercise I think about them in terms of:
 - **Policy**: - what are my consistent requirements?
