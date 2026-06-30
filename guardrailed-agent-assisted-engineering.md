@@ -267,7 +267,7 @@ Some data that might be interesting, or not, that I pulled out of the iOS projec
 
 Agents are most safely used as accelerants within a well-designed set of human-gated controls. What made me successful was acknowledging shortcomings, embracing strengths and then designing a system with gates that result in quality outputs.
 
-###  Major Takeaways
+### Major Takeaways
 - **The system matters more than the model:** (ducks)
 	- It's easy to lose sight of the overall system with news cycles that are keyed in on Opus X now outpaces GPT Y and open models are now the equivalent of Y and models are being trained and put out to market at a quicker and quicker pace. The greatest model in the world can produce great output as well as it can produce slop under, depending on the overall governance system in place.
 	- 'Quality Management' is a term I constantly think of. At one point in my career I was working closely with [ISO 9001](https://www.iso.org/standard/62085.html) to support two major clients. On some days I was agonizing over how intensive it could get; today I think it's one of the most important standards to consider for your 'system' and I've been revisiting it. [ISO 42001](https://www.iso.org/standard/42001) is a more recent, AI-focused, framework but don't forget about ISO 9001!
@@ -279,7 +279,7 @@ Agents are most safely used as accelerants within a well-designed set of human-g
 - **Where you gate with a human decision is more of a design challenge than a workflow preference:** Another way of presenting the system is in terms of adversarial risk management. When you gate with a human decision it should be where you identify the most risk procedurally based on the current state of your agent governance system.
 - As the governance system matures, enforcement gaps start to close, feedback loops add invariants, test coverage expands, and the risk calculation at each gate changes. Gates that exist today because a control is absent may become automatable tomorrow and so on. 
 
-# Designing A System
+## 13. Designing A System
 
 **Disclaimer** - I'm not going fully into what this looks like, in practice, because it would be an even larger wall of text than this is already. This is also for reference purposes and is not meant to suggest how this gets done, it's simply how my brain thinks about it.
 ________
@@ -309,7 +309,7 @@ There is a system in place whether intentional or not so the above is not meant 
 If you don't have this in place already, document it. Fortunately, you can now dictate to models if that is something you are comfortable with to go through and start laying out the baseline context and source of truth. Document this across all components.
 
 ## 2 - Define Risk Cases Against System Documentation
-Define your risks against your system documentation and then stack rank them using yyour organization’s risk-scoring system. You may need to develop your own to get this done and fortunately there are many good public-facing resources available.
+Define your risks against your system documentation and then stack rank them using your organization’s risk-scoring system. You may need to develop your own to get this done and fortunately there are many good public-facing resources available.
 
 ## 3 - Document Your Gaps
 Based on those risks identify your operational gaps, this is going to highlight where you will be focusing paired with the stack ranking of the highest-rated risks.
@@ -330,7 +330,7 @@ Again, nothing new here, this is IT Change Management. Using your operational co
 This ties directly back to my pattern of using failures as a mechanism to inform how you alter design over time to improve. Additionally, it seems as though there is going to forever be a, "X releases new capability Y that lets you do Z", and with some rapidity, so use those as opportunities to revisit your system.
 
 ______________
-# 14. Closing
+## 14. Closing
 Hopefully this is all interesting to ponder and consider, particularly if it pressure tests how you may think about some of these things, I'm always trying to learn more and pressure test how *I* think about governance, system design, technical implementations, and all of the infinite considerations that I can't accurately reflect in a list. (so much that I use a skill just for this)
 
 Happy AI-ing and I hope you all get some inspiration to be a responsible steward!
