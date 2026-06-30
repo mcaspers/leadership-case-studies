@@ -1,7 +1,7 @@
 # Guardrailed Agent-Assisted Engineering: A Personal Use Case and Experience
 ## Preface
 
-**Author notes: I am not a mobile developer**, I came to this project with software engineering experience but no prior iOS platform knowledge. I state this at the outset because it is the single most important design constraint in everything that follows. This writeup is not meant to be suggestive or representative of the **specifics** of how I think a governance model should be adopted; it does walk through an reference process towards the end that shows how adopting or evolving a system *could* be done. It is also meant to highlight my own experiences (successes, failures, etc.) and to suggest that intensive focus should be lent towards quality management within an overall system, under which agents, models, harnesses, skills, plugins, etc. all operate.
+**Author notes: I am not a mobile developer**, I came to this project with software engineering experience but no prior iOS platform knowledge. I state this at the outset because it is the single most important design constraint in everything that follows. This writeup is not meant to be suggestive or representative of the **specifics** of how I think a governance model should be adopted; it does walk through n reference process towards the end that shows how adopting or evolving a system *could* be done. It is also meant to highlight my own experiences (successes, failures, etc.) and to suggest that intensive focus should be lent towards quality management within an overall system, under which agents, models, harnesses, skills, plugins, etc. all operate.
 
 ---
 
@@ -54,7 +54,7 @@ Specifically, I leveraged agents/models to establish a knowledge baseline using 
 - SwiftUI `@StateObject` lifecycle semantics — the source of a documented persistence bug that I uncovered.
 - Xcode `.pbxproj` file structure and the four-entry requirement for adding new build targets.
 - The `convertFromSnakeCase` + explicit `CodingKeys` interaction order — the source of a recurring silent failure class that I came across.
-- ECDSA ES256 JWT design pattern for device-scoped authentication tokens. I have design experience here but not hands on implementation experience.
+- ECDSA ES256 JWT design pattern for device-scoped authentication tokens. I have design experience here but not hands-on implementation experience.
 
 In each case, the workflow required verification before encoding the knowledge as a project rule. Agent-supplied knowledge was confirmed against Apple Developer Documentation, Swift documentation, or — most reliably — a failing test that made the behavior observable before it was committed.
 
@@ -68,6 +68,7 @@ The project used multiple agentic platforms (for lack of a better term).
 - **Frontier Providers** — Anthropic (Claude Code), OpenAI (Codex)
 - **Open Source Providers** - Ollama (predominantly cloud models, GLM (latest) and Kimi (latest) models)
 - **Harness** - tailored harness that takes into account my shortcomings from an experience perspective to layer in mitigating guardrails, built around Matt Pocock's [skills repository](https://github.com/mattpocock/skills) and the [Pi Coding Agent](https://pi.dev/)
+  
 All agents (opus, sonnet, gpt, glm, kimi) are subject to the same set of skills, context and progressive disclosure approaches, etc. to maintain consistency. I also use this setup in other projects and dogfood the system against itself. (for better or worse)
 
 The system is designed around a provider-neutral core — governance profiles, domain glossary, workflow skills, and coding standards — so the same policy documents apply regardless of which agent executes a task. Something that is on the short list is creating a single set of policy definitions paired with a mechanism to deploy for multiple provider context. (Codex, Claude Code, Pi, etc.) I have not worked through this just yet.
@@ -79,7 +80,7 @@ The governance model described here is personal-scale: one developer, the provid
 I broke out the system development work into phases:
 **1 -  Advisory:** Policy exists in documents. Agents are instructed that they should not access credentials, personal files, or unrelated data. No runtime enforcement prevents a violation. This is a directive approach from a controls perspective.
 
-**2 - Partially Preventive:** Advisory (above) is mapped to managed permission profiles for one provider (Codex, in my case) on macOS. Hard-denied paths include credential directories, package authentication files. The managed profile is installed manually through MacOS System Settings, I don't use an MDM today. 
+**2 - Partially Preventive:** Advisory (above) is mapped to managed permission profiles for one provider (Codex, in my case) on macOS. Hard-denied paths include credential directories, package authentication files. The managed profile is installed manually through macOS System Settings, I don't use an MDM today. 
 
 ### Autonomy Boundaries
 
@@ -115,10 +116,10 @@ The iOS networking layer validates TLS connections against five pinned Amazon Tr
 ### Security Scanner Installed from Immutable Artifact, Not PR Source
 The CI security scanner is installed from an immutable release artifact in a private package repository, not from the PR's changed files. This mitigates a supply-chain substitution attack where a malicious PR replaces the scanner with a version that always passes. Failure is configured to be closed: if the scanner produces no output, CI fails.
 
-Additionally, throughout all of this "SaaSpocalyse" content (nonsense) I pressure tested what building your own security linter looks like. There are reasons there are SAST companies and projects that have significant contribution. I ended up with a combination of semgrep (can tailor to project), native language/tech security linters (e.g. bandit), tailored git-leaks, etc. that I pruned to be tailored to my project context.
+Additionally, throughout all of this "SaaSpocalypse" content (nonsense) I pressure tested what building your own security linter looks like. There are reasons there are SAST companies and projects that have significant contribution. I ended up with a combination of semgrep (can tailor to project), native language/tech security linters (e.g. bandit), tailored GitLeaks, etc. that I pruned to be tailored to my project context.
 
 ### Dual-Sided iOS-Backend Contract Tests
-After the fifth occurrence of the same silent field-name decoding failure at the iOS/backend boundary, dual-sided contract tests were mandated. This is admittedly an oversight I had during planning that I would eventually figure out, but not without pain. One Python test serializes the Pydantic model and asserts exact JSON field names. One Swift test decodes the same JSON with the production decoder configuration. The backend side is CI-enforced. The iOS side runs locally only at the evidence date. Part of the reason for running iOS testing locally is for budgetary reasons and some hit or miss experiences using cloud MacOS runners (which also, budget considerations). Debugging the tests locally is simply easier for me and more budget-friendly.
+After the fifth occurrence of the same silent field-name decoding failure at the iOS/backend boundary, dual-sided contract tests were mandated. This is admittedly an oversight I had during planning that I would eventually figure out, but not without pain. One Python test serializes the Pydantic model and asserts exact JSON field names. One Swift test decodes the same JSON with the production decoder configuration. The backend side is CI-enforced. The iOS side runs locally only at the evidence date. Part of the reason for running iOS testing locally is for budgetary reasons and some hit or miss experiences using cloud macOS runners (which also, budget considerations). Debugging the tests locally is simply easier for me and more budget-friendly.
 
 ### TDD as a Non-Negotiable Project Rule
 Writing tests aren't fun. Red-Green-Refactor is written into the project configuration as non-negotiable with no exceptions. The configuration instructs agents/models to stop and delete implementation code if it was written before a failing test. This compensates for a developer without deep domain expertise by ensuring that agent-generated code has a behavioral specification in the form of a failing test before implementation begins. Without this constraint, a knowledge gap in the developer would have compounded a knowledge gap in the agent. I needed to make up for my shortcomings.
@@ -126,7 +127,7 @@ Writing tests aren't fun. Red-Green-Refactor is written into the project configu
 ---
 
 ## 7. Quality-Management Layers
-Quality controls divide into two categories: those enforced by CI on every pull request to `main`, and those that are locally executed but not CI-gated. The distinction matters and is stated explicitly for every control below. Re: local tests I noted above why I chose to do local testing for certain things vs. rely on cloud runners using MacOS.
+Quality controls divide into two categories: those enforced by CI on every pull request to `main`, and those that are locally executed but not CI-gated. The distinction matters and is stated explicitly for every control below. Re: local tests I noted above why I chose to do local testing for certain things vs. rely on cloud runners using macOS.
 ### CI-Enforced on Every Pull Request
 
 | Control                                | What It Enforces                                                                                                   |
@@ -148,7 +149,7 @@ The below is not CI gated but I do leverage pre-commit hooks for some:
 
 | Control                                         | What It Covers                                                                                                                                               |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| iOS XCTest suite (~287 functions, 34 files)     | Networking, services, state, utilities, policy logic on a simulator on MacOS                                                                                 |
+| iOS XCTest suite (~287 functions, 34 files)     | Networking, services, state, utilities, policy logic on a simulator on macOS                                                                                 |
 | Dashboard unit tests (~23 files, vitest)        | Auth hooks, API client, page renders, form flows, middleware                                                                                                 |
 | Playwright E2E (login, session, dashboard home) | Dashboard flows against a local development server, Firefox and mobile Firefox. This is for a local dashboard that I use for testing/conceptualizing things. |
 | CDK infrastructure tests (61 assertions)        | Stack synthesis, route registration, Lambda bundling, Cognito configuration                                                                                  |
@@ -276,7 +277,7 @@ Agents are most safely used as accelerants within a well-designed set of human-g
 	- Also, you likely have a system today whether it is formally defined or not. I started from scratch so my system defaulted to what is described here, many people, organizations, etc. will be faced with how they evolve their current system to incorporate new AI capabilities safely.
 - **Failures are valuable inputs, not just incidents:** Part of how you tailor your system is by leveraging your failures, oversights, errors, etc. to sharpen your setup and the great news is that you can accelerate creating your incident template, RCA and actioning triage of the post mortem improvements quite efficiently while still gating it.
 - **Where you gate with a human decision is more of a design challenge than a workflow preference:** Another way of presenting the system is in terms of adversarial risk management. When you gate with a human decision it should be where you identify the most risk procedurally based on the current state of your agent governance system.
-- As the governance system matures, enforcement gaps start to close, feedback loops add invariants, test coverage expands, and the risk calculation at each gate changes. Gates that exist today because a control is absent may become automateable tomorrow and so on. 
+- As the governance system matures, enforcement gaps start to close, feedback loops add invariants, test coverage expands, and the risk calculation at each gate changes. Gates that exist today because a control is absent may become automatable tomorrow and so on. 
 
 # Designing A System
 
@@ -302,13 +303,13 @@ The way I tend to think about a System is as a set of governance components, whi
 There is a system in place whether intentional or not so the above is not meant to indicate introduction of a new system, but rather a way to frame the current state such that you can dig into each area and the aggregate to understand how it changes or evolves to adopt new AI-driven capabilities.
 
 ## Procedurally...
-...this *can* look like the following. Again, this is how my brain works but I tend to try to step back a layer or two to think about how this shares concepts with other concepts and at it's core it's just IT Change Management. It may be way more complex than other IT Change Management projects, but that's because it is way more complex not because it's anything different, conceptually.
+...this *can* look like the following. Again, this is how my brain works but I tend to try to step back a layer or two to think about how this shares concepts with other concepts and at its core it's just IT Change Management. It may be way more complex than other IT Change Management projects, but that's because it is way more complex not because it's anything different, conceptually.
 
 ## 1 - Document Your System
 If you don't have this in place already, document it. Fortunately, you can now dictate to models if that is something you are comfortable with to go through and start laying out the baseline context and source of truth. Document this across all components.
 
 ## 2 - Define Risk Cases Against System Documentation
-Define your risks against your system documentation and then stack rank them using your organizations risk scoring system. You may need to develop your own to get this done and fortunately there are many good public-facing resources available.
+Define your risks against your system documentation and then stack rank them using yyour organization’s risk-scoring system. You may need to develop your own to get this done and fortunately there are many good public-facing resources available.
 
 ## 3 - Document Your Gaps
 Based on those risks identify your operational gaps, this is going to highlight where you will be focusing paired with the stack ranking of the highest-rated risks.
@@ -320,7 +321,7 @@ Reconcile what you identified in 2 & 3 against what you are *required* to do. In
 Given what is reconciled in 4 above apply your technology stack against your list to gauge what is or isn't possible and then layer that into your stack rank from 4 to line up tech stack capabilities for each line item.
 
 ## 6 - Design and Planning
-Planning is had, but the absence of it presents major operational risk when you land on the other side with outputs lacking forethought, spend some time here thinking through adoption of changes, the inputs you need that should inform those changes and then designing it all to try to play out what it looks like in practice paired with some adversarial pressure testing of does it **actually** work in practice.
+Planning is hard, but the absence of it presents major operational risk when you land on the other side with outputs lacking forethought, spend some time here thinking through adoption of changes, the inputs you need that should inform those changes and then designing it all to try to play out what it looks like in practice paired with some adversarial pressure testing of does it **actually** work in practice.
 
 ## 7 - Prioritize and Execute
 Again, nothing new here, this is IT Change Management. Using your operational context of priorities, resources, etc. start to work through the prioritized list of initiatives that come out of steps 1 - 6 to go change your system.
@@ -329,7 +330,7 @@ Again, nothing new here, this is IT Change Management. Using your operational co
 This ties directly back to my pattern of using failures as a mechanism to inform how you alter design over time to improve. Additionally, it seems as though there is going to forever be a, "X releases new capability Y that lets you do Z", and with some rapidity, so use those as opportunities to revisit your system.
 
 ______________
-# Closing
+# 14. Closing
 Hopefully this is all interesting to ponder and consider, particularly if it pressure tests how you may think about some of these things, I'm always trying to learn more and pressure test how *I* think about governance, system design, technical implementations, and all of the infinite considerations that I can't accurately reflect in a list. (so much that I use a skill just for this)
 
 Happy AI-ing and I hope you all get some inspiration to be a responsible steward!
