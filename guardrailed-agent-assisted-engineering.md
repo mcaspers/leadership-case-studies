@@ -305,28 +305,28 @@ There is a system in place whether intentional or not so the above is not meant 
 ## Procedurally...
 ...this *can* look like the following. Again, this is how my brain works but I tend to try to step back a layer or two to think about how this shares concepts with other concepts and at its core it's just IT Change Management. It may be way more complex than other IT Change Management projects, but that's because it is way more complex not because it's anything different, conceptually.
 
-## 1 - Document Your System
+### 1 - Document Your System
 If you don't have this in place already, document it. Fortunately, you can now dictate to models if that is something you are comfortable with to go through and start laying out the baseline context and source of truth. Document this across all components.
 
-## 2 - Define Risk Cases Against System Documentation
+### 2 - Define Risk Cases Against System Documentation
 Define your risks against your system documentation and then stack rank them using your organization’s risk-scoring system. You may need to develop your own to get this done and fortunately there are many good public-facing resources available.
 
-## 3 - Document Your Gaps
+### 3 - Document Your Gaps
 Based on those risks identify your operational gaps, this is going to highlight where you will be focusing paired with the stack ranking of the highest-rated risks.
 
-## 4 - Reconcile Gaps, Risks and Policy Requirements
+### 4 - Reconcile Gaps, Risks and Policy Requirements
 Reconcile what you identified in 2 & 3 against what you are *required* to do. In theory this should have also informed your risk rating exercise in 2. This can be done by gap, by risk, or whatever way makes the most sense and is the most usable by the team involved in this process.
 
-## 5 - Assess Technology Coverage
+### 5 - Assess Technology Coverage
 Given what is reconciled in 4 above apply your technology stack against your list to gauge what is or isn't possible and then layer that into your stack rank from 4 to line up tech stack capabilities for each line item.
 
-## 6 - Design and Planning
+### 6 - Design and Planning
 Planning is hard, but the absence of it presents major operational risk when you land on the other side with outputs lacking forethought, spend some time here thinking through adoption of changes, the inputs you need that should inform those changes and then designing it all to try to play out what it looks like in practice paired with some adversarial pressure testing of does it **actually** work in practice.
 
-## 7 - Prioritize and Execute
+### 7 - Prioritize and Execute
 Again, nothing new here, this is IT Change Management. Using your operational context of priorities, resources, etc. start to work through the prioritized list of initiatives that come out of steps 1 - 6 to go change your system.
 
-## 8 - Operate and Evolve
+### 8 - Operate and Evolve
 This ties directly back to my pattern of using failures as a mechanism to inform how you alter design over time to improve. Additionally, it seems as though there is going to forever be a, "X releases new capability Y that lets you do Z", and with some rapidity, so use those as opportunities to revisit your system.
 
 ______________
